@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:200,400');
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,400");
 
 /* Colors */
 :root {
   --green: #00bc84;
-  --light-grey: #dce8e8; 
+  --light-grey: #dce8e8;
   --dark-grey: #4a575b;
 }
 
@@ -14,14 +14,13 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   color: var(--dark-grey);
-  
 }
 
 img {
-/*   height: 60px;
+  /*   height: 60px;
   width: 60px;
   border-radius: 50%;
   margin: 0 1em;
@@ -57,20 +56,19 @@ h3 span {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  box-shadow: 0 1px 5px rgba(0,0,0, 0.1);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
   /* max-height: 600px; */
   align-content: flex-end;
   justify-content: space-evenly;
   text-align: center;
   position: relative;
 }
-.wrapper > h3{
+.wrapper > h3 {
   margin-bottom: 0px;
-/*   border: 1px solid red; */
+  /*   border: 1px solid red; */
   margin-bottom: 20px;
   padding: 20px;
   width: 100%;
-  
 }
 
 .chat-item {
@@ -90,8 +88,8 @@ h3 span {
   border: 1px solid var(--light-grey);
   border-radius: 40px;
   border-bottom-left-radius: 0;
-  box-shadow: 0 1px 5px rgba(0,0,0, 0.1);
-    align-self: flex-end;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  align-self: flex-end;
 }
 
 .chat-item_body.alt {
@@ -109,14 +107,14 @@ h3 span {
   overflow: hidden;
   width: 100%;
   position: relative;
-/*   border: 1px solid red; */
+  /*   border: 1px solid red; */
 }
 
 .message-body {
   border: 0;
   padding: 1em 2rem;
   padding-left: 0px;
-/*   border: 1px solid red; */
+  /*   border: 1px solid red; */
   width: 100%;
 }
 
@@ -127,23 +125,23 @@ h3 span {
   color: var(--light-grey);
   cursor: pointer;
 }
-.chat-interface{
+.chat-interface {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-content: flex-end;
   padding-right: 10px;
-/*   border: 1px solid red; */
+  /*   border: 1px solid red; */
 }
-.chat-container{
+.chat-container {
   width: 100%;
   display: flex;
   flex-direction: column-reverse;
   height: 370px;
   overflow: auto;
   padding: 10px 0;
-/*   background-image: url("https://fsa.zobj.net/crop.php?r=Y7XpYTU5wXAZHT1I-HGkqNiqY1umyP2ahrm8H1akctM1u5gRfs35OOglkZ8Cj3zonzO0Gh7mBcZ3bi5czNKnkuqe-F1E1iJjTvnOB1d5p2o59NL3le93Wd6fOMo-lSfWf-IgvhxkJdQv8RSV"); */
-/*   margin-top: 10px; */
+  /*   background-image: url("https://fsa.zobj.net/crop.php?r=Y7XpYTU5wXAZHT1I-HGkqNiqY1umyP2ahrm8H1akctM1u5gRfs35OOglkZ8Cj3zonzO0Gh7mBcZ3bi5czNKnkuqe-F1E1iJjTvnOB1d5p2o59NL3le93Wd6fOMo-lSfWf-IgvhxkJdQv8RSV"); */
+  /*   margin-top: 10px; */
 }
 
 .chat-container::-webkit-scrollbar {
@@ -156,7 +154,7 @@ h3 span {
   /* Цвет дорожки */
 }
 
-.chat-container::-webkit-scrollbar-thumb{
+.chat-container::-webkit-scrollbar-thumb {
   background-color: #c0c0c0;
   /* Цвет бегунка */
   border-radius: 20px;
@@ -165,14 +163,14 @@ h3 span {
   /* Оформление границ бегунка */
 }
 .addFile {
-/*   border: 1px solid red; */
+  /*   border: 1px solid red; */
   position: relative;
   width: 60px;
   background-image: url("https://cdn.glitch.global/a9f92e54-a498-4c3b-bd63-4d8aa4188758/attach_file_FILL0_wght400_GRAD0_opsz24.svg?v=1697271712373");
   background-repeat: no-repeat;
   background-position: center center;
 }
-.addFile > input[type="file"]{
+.addFile > input[type="file"] {
   position: absolute;
   top: 0;
   left: 0;
@@ -181,38 +179,64 @@ h3 span {
   opacity: 0;
   cursor: pointer;
 }
-.selected_file{
-/*   border: 1px solid red; */
+
+.selected_file {
+  /* border: 1px solid red; */
   position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 150px;
+  bottom: 80px;
+  left: 20px;
   background: #ffffff;
   z-index: 100;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-/*   display: none; */
+  padding: 15px;
+  box-shadow: 0px 0px 8px 0.5px rgba(0, 0, 0, 0.096);
 }
 
+.wrap-span {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  cursor: pointer;
+  background: #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 8px 0.5px rgba(0, 0, 0, 0.096);
+}
+.close-selected-file:hover {
+  color: #00bc84;
+}
 .selected_file > img {
   width: 100px;
   height: 100px;
 }
+.selected_file > button {
+  width: 100px;
+  border-radius: 2px;
+  background: #fff;
+  color: #00bc84;
+  text-align: center;
+}
 
-.message_file_img{
-/*   border: 1px solid red; */
+.selected_file > button:hover {
+  background: #00bc84;
+  color: #fff;
+}
+
+.message_file_img {
+  /*   border: 1px solid red; */
   width: 150px;
   height: 150px;
 }
-.file-button{
-/*   width: 70px; */
-/*   height: 40px; */
+.file-button {
+  /*   width: 70px; */
+  /*   height: 40px; */
   padding: 10px;
   display: flex;
   border: 1px solid var(--green);
-/*   position: absolute; */
+  /*   position: absolute; */
   right: 0;
   cursor: pointer;
 }
@@ -234,7 +258,7 @@ h3 span {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-/*   border: 1px solid red; */
+  /*   border: 1px solid red; */
 }
 
 .item {
@@ -244,4 +268,37 @@ h3 span {
 .item_size {
   text-align: left;
   font-size: 10px;
+}
+
+.popover_audio {
+  /* border: 1px solid red; */
+  position: absolute;
+  bottom: 80px;
+  width: 90%;
+  left: 20px;
+  background: #ffffff;
+  z-index: 100;
+  padding: 15px;
+  box-shadow: 0px 0px 8px 0.5px rgba(0, 0, 0, 0.096);
+}
+
+.start-recording-button {
+  cursor: pointer;
+}
+.recording-wrap {
+  width: 100%;
+  text-align: left;
+  animation: example 2s linear infinite;
+}
+
+@keyframes example {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
