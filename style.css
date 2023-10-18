@@ -183,12 +183,17 @@ h3 span {
 .selected_file {
   /* border: 1px solid red; */
   position: absolute;
+  width: 94%;
   bottom: 80px;
-  left: 20px;
+  left: 3%;
+  right: 3%;
   background: #ffffff;
   z-index: 100;
   padding: 15px;
   box-shadow: 0px 0px 8px 0.5px rgba(0, 0, 0, 0.096);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .wrap-span {
@@ -234,10 +239,11 @@ h3 span {
   /*   width: 70px; */
   /*   height: 40px; */
   padding: 10px;
+  margin: 0 auto;
   display: flex;
   border: 1px solid var(--green);
   /*   position: absolute; */
-  right: 0;
+  /* right: 0; */
   cursor: pointer;
 }
 
@@ -284,11 +290,25 @@ h3 span {
 
 .start-recording-button {
   cursor: pointer;
+  padding: 10px;
 }
 .recording-wrap {
   width: 100%;
-  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  /* text-align: left; */
+}
+.recording-wrap > img {
   animation: example 2s linear infinite;
+}
+.recording-wrap > button {
+  width: 50px;
+  height: 30px;
+  border: none;
+  background: none;
+}
+.recording-wrap > button > img {
+  cursor: pointer;
 }
 
 @keyframes example {

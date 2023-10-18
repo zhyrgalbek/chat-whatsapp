@@ -1,5 +1,7 @@
 const chatBtn = document.querySelector(".message-button"),
   chatMessage = document.querySelector(".message-body");
+const microphonButton = document.getElementsByClassName("start-recording-button")[0]
+
 let wrapper = document.querySelector(".wrapper");
 let eventSource;
 let messageWhatsapp = {}
@@ -40,17 +42,34 @@ window.addEventListener("hashchange", function () {
 
 
 
+chatBtn.style.display = "none"
+chatMessage.addEventListener("input", function (event) {
+  console.log(event.target.value);
+  if (event.target.value) {
+    chatBtn.style.display = "block"
+    microphonButton.style.display = "none"
+  } else {
+    chatBtn.style.display = "none"
+    microphonButton.style.display = "block"
+  }
+})
+
 chatMessage.addEventListener("keydown", function (event) {
+
   if (event.keyCode === 13) {
     chatBtn.click();
   }
 })
+
+
 
 chatBtn.addEventListener("click", function () {
   if (chatMessage.value === "") {
     alert("Please write your message.")
   } else {
     sendChatMessageUser2(messageWhatsapp);
+    chatBtn.style.display = "none"
+    microphonButton.style.display = "block"
   }
 })
 
@@ -117,6 +136,11 @@ async function sendChatMessageUser2(messageWhatsapp, fileUrl, file) {
 
   chatItem.style.alignSelf = "flex-end";
   console.log(fileUrl);
+
+  const file_name = document.createElement('p')
+
+  const file_size = document.createElement('p')
+
   if (fileUrl) {
     let img = document.createElement("img");
     let btn = document.createElement("button");
@@ -125,9 +149,22 @@ async function sendChatMessageUser2(messageWhatsapp, fileUrl, file) {
       e.stopPropagation();
       downloadFile(fileUrl, file);
     })
+
+    let namefile
+    if (file?.name.length > 15) {
+      namefile = file?.name.slice(0, 15).concat("...")
+    } else {
+      namefile = file?.name
+    }
     if (file.type.match('image.*')) {
       img.src = fileUrl;
+
+      file_name.innerHTML = namefile
+      file_size.innerHTML = file?.size + " KБ"
     } else {
+      file_name.innerHTML = namefile
+      file_size.innerHTML = file?.size + " KБ"
+
       img.src = './icons/file-icon.svg'
     }
     img.classList.add("message_file_img");
@@ -136,8 +173,14 @@ async function sendChatMessageUser2(messageWhatsapp, fileUrl, file) {
   } else {
     chatBody.textContent = chatMessage.value;
   }
+  // file info
+  const filename_abbr = document.createElement('abbr')
+  filename_abbr.title = file.name
+  filename_abbr.style.textDecoration = "none"
 
-
+  filename_abbr.append(file_name)
+  chatBody.append(filename_abbr)
+  chatBody.append(file_size)
 
   chatItem.append(chatBody);
   // Append chat parts to chat item
@@ -204,7 +247,7 @@ wrap_span.addEventListener("click", function () {
 function showFile(fileLink) {
   let img = document.createElement("img");
   let fileBtn = document.createElement("button");
-  // console.log(fileLink);
+  console.log(fileLink);
   if (fileLink.type.match('image.*')) {
     let reader = new FileReader();
     reader.readAsDataURL(fileLink);
@@ -220,7 +263,34 @@ function showFile(fileLink) {
     };
   }
 
+  
   let div = document.createElement("div");
+  const wrap_info = document.createElement('div')
+  const info_file = document.createElement('div')
+  info_file.className = "info_file"
+  const name_file = document.createElement('p')
+
+  const filename_abbr = document.createElement('abbr')
+  filename_abbr.title = fileLink.name
+  filename_abbr.style.textDecoration = "none"
+
+  let namefile
+    if (fileLink?.name.length > 15) {
+      console.log(">");
+      namefile = fileLink?.name.slice(0, 15).concat("...")
+    } else {
+      console.log("<");
+      namefile = fileLink?.name
+    }
+    console.log(namefile);
+  name_file.innerHTML = namefile
+  const size_file = document.createElement('p')
+  size_file.innerHTML = fileLink.size + " KБ"
+
+  filename_abbr.append(name_file)
+  info_file.append(filename_abbr)
+  info_file.append(size_file)
+
 
   wrap_span.className = "wrap-span"
   close_icon.innerHTML = "✖"
@@ -237,60 +307,85 @@ function showFile(fileLink) {
   wrap_span.appendChild(close_icon);
   div.appendChild(wrap_span);
   div.appendChild(img);
-  div.appendChild(fileBtn);
+  // div.appendChild(fileBtn);
+  wrap_info.append(info_file)
+  wrap_info.append(fileBtn)
+  div.append(wrap_info)
   wrapper.appendChild(div);
 }
 
 
 let mediaRecorder;
 let chunks = [];
-const microphonButton = document.getElementsByClassName("start-recording-button")[0]
+
 const popover_audio = document.createElement("div")
 popover_audio.className = "popover_audio"
 
+const send_btn = document.createElement('button')
+const send_icon = document.createElement('img')
+send_icon.src = './icons/send-record.svg'
 
 microphonButton.addEventListener("click", function () {
-  if (!mediaRecorder) {
-    wrapper.appendChild(popover_audio)
-    navigator.mediaDevices.getUserMedia({ audio: true })
-      .then(function (stream) {
-        mediaRecorder = new MediaRecorder(stream)
-        mediaRecorder.start()
-        console.log(stream, "stream");
-        mediaRecorder.ondataavailable = function (e) {
-          chunks.push(e.data)
-          console.log(e.data, 'e.data');
-        };
+  console.log(mediaRecorder, "mediaRecorder");
+  console.log(chunks, "chunks");
+  wrapper.appendChild(popover_audio)
+  if (mediaRecorder) return
+  navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(function (stream) {
+      mediaRecorder = new MediaRecorder(stream)
+      mediaRecorder.start()
+      console.log(stream, "stream");
+      mediaRecorder.ondataavailable = function (e) {
+        chunks.push(e.data)
+        console.log(e.data, 'e.data');
+      };
 
-        const recording = document.createElement("div")
-        recording.className = "recording-wrap"
-        const recording_icon = document.createElement('img')
-        recording_icon.src = './icons/recording.svg'
-        recording.appendChild(recording_icon)
-        popover_audio.appendChild(recording)
+      const recording = document.createElement("div")
+      recording.className = "recording-wrap"
+      const recording_icon = document.createElement('img')
 
-
-        mediaRecorder.onstop = function () {
-          const blob = new Blob(chunks, { 'type': 'audio/ogg; codecs=opus' })
-          const audioURL = window.URL.createObjectURL(blob)
-          const audio = new Audio(audioURL)
-          audio.controls = true
-          popover_audio.removeChild(recording)
-          popover_audio.appendChild(audio)
-
-          chunks = []
-        }
+      send_btn.append(send_icon)
+      recording_icon.src = './icons/recording.svg'
+      recording.appendChild(recording_icon)
+      recording.appendChild(send_btn)
+      popover_audio.appendChild(recording)
 
 
-      })
-  } else {
-    console.log("else");
-    console.log('stop');
-    if (mediaRecorder) {
-      mediaRecorder.stop();
-    }
+      mediaRecorder.onstop = function () {
+        const chatBody = document.createElement("figcaption");
+        // Create chat item & set styles
+        const chatItem = document.createElement("figure");
+        const chatInterface = document.querySelector(".chat-interface");
+        const blob = new Blob(chunks, { 'type': 'audio/ogg; codecs=opus' })
+        const audioURL = window.URL.createObjectURL(blob)
+        const audio = new Audio(audioURL)
+        audio.controls = true
+        wrapper.removeChild(popover_audio)
+        chatBody.appendChild(audio)
+        console.log(chatBody);
+        chatItem.append(chatBody);
+        recording.removeChild(recording_icon)
+        // Append chat parts to chat item
+
+        // Append chat item to chat interface
+        chatInterface.appendChild(chatItem);
+        mediaRecorder = null
+        chunks = []
+      }
+
+
+    })
+
+})
+
+send_icon.addEventListener('click', function () {
+  if (mediaRecorder) {
+    mediaRecorder.stop();
+
   }
 })
+
+
 
 
 
